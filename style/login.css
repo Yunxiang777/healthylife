@@ -1,0 +1,13 @@
+.form_style {
+    max-width: 500px;
+    border: 1px solid black;
+    padding: 50px;
+    margin-top: 5%;
+}
+
+.container {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
