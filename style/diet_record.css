@@ -1,0 +1,46 @@
+.food_box {
+    margin: auto;
+    margin-top: 1%;
+    max-width: 500px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 1%;
+}
+
+.food_box input:focus {
+    border: 2px solid #17a2b8;
+    outline: none;
+    /* 點擊input時的邊框樣式 */
+}
+
+.food_list {
+    width: 80%;
+    margin: auto;
+    margin-top: 1%;
+}
+
+@media screen and (max-width: 550px) {
+    .input_diet {
+        width: 100%;
+        margin-bottom: 1%;
+    }
+
+    #add_food {
+        width: 100%;
+    }
+
+    .food_box {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .input_diet::placeholder {
+        text-align: center;
+    }
+
+}

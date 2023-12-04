@@ -1,6 +1,8 @@
 <?php
 require_once 'database.php'; // 包含数据库连接文件
-
+// 创建数据库连接对象
+$database = new Database();
+$conn = $database->getConnection();
 // 获取从前端传递的用户名和密码
 $email = $_POST['email'];
 $password = $_POST['password'];

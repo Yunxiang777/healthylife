@@ -39,7 +39,3 @@ class Database
         }
     }
 }
-
-// 创建数据库连接对象
-$database = new Database();
-$conn = $database->getConnection();

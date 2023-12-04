@@ -21,7 +21,7 @@
                     <a class="nav-link" href="<?php echo 'http://' . $_SERVER['SERVER_NAME']; ?>/healthylife">首頁 <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="<?php echo 'http://' . $_SERVER['SERVER_NAME']; ?>/healthylife/view/diet_record.php">飲食紀錄</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
