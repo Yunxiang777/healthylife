@@ -1,4 +1,4 @@
-<?php require_once './template/narbar.php'; ?>
+<?php require_once __DIR__ . '/template/narbar.php' ?>
 
 <head>
     <link rel="stylesheet" href="../style/login.css">
@@ -21,44 +21,32 @@
         <button type="button" class="btn btn-primary" id="login">登入</button>
     </form>
 </div>
-<?php require_once './template/common.php'; ?>
-
 
 <script>
-    $(document).ready(function() {
-        $("#login").click(function() {
-            // 获取 email 和 password 的值
-            var email = $("#email").val();
-            var password = $("#password").val();
-
-            // 在这里执行你的登录逻辑，可以将 email 和 password 发送到服务器进行验证
-            // 例如，你可以使用 AJAX 向服务器发送登录请求
-
-            // 示例：使用 jQuery 的 AJAX
-            $.ajax({
-                type: "POST",
-                url: "../model/login_check.php",
-                data: {
-                    email: email,
-                    password: password
-                },
-                dataType: "json", // Specify the expected data type
-                success: function(response) {
-                    // Check the 'success' property in the JSON response
-                    if (response.success) {
-                        // Login successful logic
-                        window.location.href = 'home.php';
-                    } else {
-                        // Login failed logic
-                        console.log("Login failed");
-                    }
-                },
-                error: function(error) {
-                    // Handle Ajax request error
-                    console.error("Ajax request failed", error);
+$(document).ready(function() {
+    //登入確認觸發
+    $("#login").click(function() {
+        var email = $("#email").val();
+        var password = $("#password").val();
+        $.ajax({
+            type: "POST",
+            url: "../controller/login_check.php",
+            data: {
+                email: email,
+                password: password
+            },
+            success: function(response) {
+                if (response) {
+                    window.location.href = '../index.php';
+                } else {
+                    console.log("帳號密碼有誤");
                 }
-            });
-
+            },
+            error: function(error) {
+                console.error("Ajax request failed", error);
+            }
         });
+
     });
+});
 </script>

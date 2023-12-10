@@ -1,18 +1,20 @@
 <?php
-// your_php_file.php
+require __DIR__ . '/../model/get_food_record.php';
+$foodRecordGetter = new Get_food_record();
 
-require_once '../model/get_food_record.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//判斷新增食物的結果
+if ($_POST['users_id']) {
     $foodName = $_POST['foodName'];
     $calories = $_POST['calories'];
     $users_id = $_POST['users_id'];
     $today = $_POST['today'];
     $mealTime = $_POST['mealTime'];
-
-    // 在這裡使用你的 FoodRecordGetter 對象執行數據庫插入操作
-    $foodRecordGetter = new Get_food_record();
-    $foodRecordGetter->insertFoodRecord($foodName, $calories, $users_id, $today, $mealTime);
-
-    echo "食物記錄插入成功";
+    $result = $foodRecordGetter->insertFoodRecord($foodName, $calories, $users_id, $today, $mealTime);
+    if ($result) {
+        echo true;
+        exit();
+    } else {
+        false;
+        exit();
+    }
 }

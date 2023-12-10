@@ -16,7 +16,15 @@ if ($currentHour >= 5 && $currentHour < 11) {
     $mealTime = "點心時刻";
 }
 
+// 獲取當前日期與時間
+$currentDateTime = new DateTime();
 
+// 格式化日期與時間為 "Y-m-d"（年-月-日）
+$formattedDate = $currentDateTime->format('Y-m-d');
+
+/**
+ * Get_food_record 類別用於獲取和插入食物記錄相關資料。
+ */
 class Get_food_record
 {
     private $conn;
@@ -27,40 +35,43 @@ class Get_food_record
         $this->conn = $database->getConnection();
     }
 
+    /**
+     * 獲取指定日期的食物記錄。
+     *
+     * @param string $mealTime 日期
+     * @return mysqli_result 食物記錄的 mysqli_result 物件
+     */
     public function getFoodRecord($mealTime)
     {
-        // 避免 SQL 注入，使用 prepared statement
-        $stmt = $this->conn->prepare("SELECT name, calories, time_period FROM food_record WHERE time_period = ?");
+
+        $stmt = $this->conn->prepare("SELECT name, calories, time_period FROM food_record WHERE date = ?");
         $stmt->bind_param("s", $mealTime);
-
-        // 執行查詢
         $stmt->execute();
-
-        // 獲取結果集
         $result = $stmt->get_result();
-
-        // 關閉 prepared statement
         $stmt->close();
-
-        // 關閉資料庫連接
         $this->conn->close();
 
         return $result;
     }
 
+    /**
+     * 插入食物記錄。
+     *
+     * @param string $foodName 食物名稱
+     * @param int $calories 卡路里
+     * @param int $users_id 使用者ID
+     * @param string $today 日期
+     * @param string $mealTime 用餐時段
+     * @return bool 插入是否成功的布林值
+     */
     public function insertFoodRecord($foodName, $calories, $users_id, $today, $mealTime)
     {
-        // 使用 prepared statement 防止 SQL 注入
         $stmt = $this->conn->prepare("INSERT INTO food_record (name, calories, users_id, date, time_period) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("ssiss", $foodName, $calories, $users_id, $today, $mealTime);
-
-        // 執行插入操作
-        $stmt->execute();
-
-        // 關閉 prepared statement
+        $result = $stmt->execute();
         $stmt->close();
-
-        // 關閉資料庫連接
         $this->conn->close();
+
+        return $result;
     }
 }

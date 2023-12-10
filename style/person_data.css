@@ -1,0 +1,14 @@
+.card {
+    max-width: 500px;
+    margin: auto;
+}
+
+.btn {
+    width: 100%;
+}
+
+label {
+    margin-bottom: 0px;
+    cursor: pointer;
+    width: 100%;
+}

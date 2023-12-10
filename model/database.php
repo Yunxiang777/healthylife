@@ -1,37 +1,31 @@
 <?php
+require_once __DIR__ . '/../config.php';
 
+/**
+ * Database 類別用於處理與資料庫的連線。
+ */
 class Database
 {
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $dbname = "healthylife";
     private $conn;
 
-    // 构造函数，在创建对象时自动执行数据库连接
     public function __construct()
     {
-        $this->connect();
-    }
+        $config = $GLOBALS['config'];
 
-    // 连接数据库
-    private function connect()
-    {
-        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+        $this->conn = new mysqli($config['db_host'], $config['db_username'], $config['db_password'], $config['db_name']);
 
-        // 检查连接是否成功
         if ($this->conn->connect_error) {
-            die("连接失败：" . $this->conn->connect_error);
+            die("資料庫連線失敗" . $this->conn->connect_error);
         }
     }
 
-    // 获取数据库连接对象
+    // 連線資料庫
     public function getConnection()
     {
         return $this->conn;
     }
 
-    // 关闭数据库连接
+    // 關閉資料庫連接
     public function closeConnection()
     {
         if ($this->conn) {
