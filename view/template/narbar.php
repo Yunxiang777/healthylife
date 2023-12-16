@@ -1,5 +1,7 @@
 <?php
-require __DIR__ . '/../../config.php';
+session_start();
+require_once __DIR__ . '/../../helper.php';
+$helper = new Helper();
 //取得當前路由位置
 $filename = pathinfo(basename($_SERVER['REQUEST_URI']))['filename'];
 ?>
@@ -47,15 +49,37 @@ $filename = pathinfo(basename($_SERVER['REQUEST_URI']))['filename'];
                 </li> -->
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="login_member">登入會員</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button"
+                    id="<?= $helper->login_status() ? 'logout_member' : 'login_member' ?>">
+                    <?= $helper->login_status() ? '登出' : '登入' ?>
+                </button>
             </form>
+
         </div>
     </nav>
     <script>
     $(document).ready(function() {
+        //登入會員
         $("#login_member").click(function() {
             window.location.href =
                 "<?= $routing['login'] ?>";
+        });
+
+        //登出
+        $("#logout_member").click(function() {
+            $.ajax({
+                url: "<?= $api['logout'] ?>",
+                type: "POST",
+                data: {
+                    'logout': true
+                },
+                success: function(data) {
+                    window.location.href = "<?= $routing['base_url'] ?>";
+                },
+                error: function(error) {
+                    console.error("Ajax request failed", error);
+                }
+            });
         });
     });
     </script>

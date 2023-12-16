@@ -19,13 +19,17 @@ class Database
         }
     }
 
-    // 連線資料庫
+    /**
+     * 連線資料庫
+     */
     public function getConnection()
     {
         return $this->conn;
     }
 
-    // 關閉資料庫連接
+    /**
+     * 關閉資料庫連接
+     */
     public function closeConnection()
     {
         if ($this->conn) {

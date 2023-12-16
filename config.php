@@ -15,3 +15,7 @@ $routing = array(
     'person_data' => $domain . 'view/person_data.php',
     'login' => $domain . 'view/login.php',
 );
+
+$api = array(
+    'logout' => $domain . 'controller/login_check.php',
+);

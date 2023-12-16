@@ -1,9 +1,10 @@
 <?php
-require_once './template/narbar.php';
+require_once __DIR__ . '/template/narbar.php';
+$helper->visitor_redirect();
 require_once __DIR__ . '/../model/update_member_data.php';
 $Update_member_data = new Update_member_data();
 // 獲取個人訊息
-$profile_message = $Update_member_data->member_message(1);
+$profile_message = $Update_member_data->member_message($_SESSION['member_id']);
 
 ?>
 
@@ -141,7 +142,7 @@ $profile_message = $Update_member_data->member_message(1);
             croppedCanvas.toBlob(function(blob) {
                 var formData = new FormData();
                 formData.append('photo', blob, 'cropped_image.jpg');
-                formData.append('member_id', '1');
+                formData.append('member_id', '<?= $_SESSION['member_id'] ?>');
                 $('#cropModal').modal('hide');
 
                 $.ajax({
@@ -185,7 +186,7 @@ $profile_message = $Update_member_data->member_message(1);
                     gender: gender,
                     profession: profession,
                     phone: phone,
-                    member_id: '1',
+                    member_id: '<?= $_SESSION['member_id'] ?>',
                     update_member_data: true
                 },
                 success: function(response) {
