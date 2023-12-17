@@ -1,26 +1,13 @@
 <?php
-require_once 'database.php';
-// 設定時區為台灣台北
-date_default_timezone_set('Asia/Taipei');
-// 取得當前時間
-$currentHour = date('G');
+require_once __DIR__ . '/database.php';
+require_once __DIR__ . '/../helper.php';
+$helper_food_record = new Helper();
 
-// 判斷時間範圍並輸出相應的時段
-if ($currentHour >= 5 && $currentHour < 11) {
-    $mealTime = "早餐時段";
-} elseif ($currentHour >= 11 && $currentHour < 14) {
-    $mealTime = "午餐時段";
-} elseif ($currentHour >= 14 && $currentHour < 19) {
-    $mealTime = "晚餐時段";
-} else {
-    $mealTime = "點心時刻";
-}
+// 輸出相應的時段
+$mealTime = $helper_food_record->mealTime();
 
-// 獲取當前日期與時間
-$currentDateTime = new DateTime();
-
-// 格式化日期與時間為 "Y-m-d"（年-月-日）
-$formattedDate = $currentDateTime->format('Y-m-d');
+// 當前日期為 "Y-m-d"（年-月-日）
+$formattedDate = $helper_food_record->currentDateTime();
 
 /**
  * Get_food_record 類別用於獲取和插入食物記錄相關資料。

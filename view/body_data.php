@@ -1,105 +1,103 @@
-<?php require_once './template/narbar.php'; ?>
+<?php
+require __DIR__ . '/template/narbar.php';
+$helper->visitor_redirect();
+require_once __DIR__ . '/../model/update_member_data.php';
+$Update_member_data = new Update_member_data();
+// 獲取個人訊息
+$profile_message = $Update_member_data->member_message($_SESSION['member_id']);
+$tedd = $helper->tdee($profile_message['gender'], $profile_message['height'], $profile_message['weight'], $profile_message['age']);
+?>
 
 <head>
-    <link rel="stylesheet" href="../style/body_data.css">
+    <!-- sweetalert2  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
 </head>
 <div class="container">
-    <div class="row">
-        <div class="col-3">
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-sm-6">
             <div class="card">
-                <img src=" https://img95.699pic.com/xsj/0z/jp/hp.jpg!/fh/300" class="card-img-top" alt="基礎體態">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">年齡</li>
-                    <li class="list-group-item">身高</li>
-                    <li class="list-group-item">體重</li>
-                </ul>
-                <div class="input-group ">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">年齡</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </div>
-                <div class="input-group ">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">身高</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </div>
-                <div class="input-group ">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">體重</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </div>
                 <div class="card-body">
-                    <button type="button" class="btn btn-secondary update_btn">更新體態數據</button>
+                    <h5 class="card-title"><?= $profile_message['name'] . '的體態數據' ?></h5>
+                    <div class="row">
+                        <div class="col-6">TDEE基礎代謝率 : <?= $tedd ?></div>
+                        <div class="col-6">健康瘦身卡路里需求 : <?= $tedd - 500 ?></div>
+                    </div>
+                    <div class="input-group mt-3">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-info" type="button" id="update_weight">更新</button>
+                        </div>
+                        <input type="text" class="form-control" placeholder="輸入本日體重(kg)" id="input_weight"
+                            aria-label="輸入本日體重(kg)" aria-describedby="update_weight">
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-sm-6">
             <div class="card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv-nhg-BP-HnRCO-2sPJCJl-8Q7iQw1VhYZhnCI8Ro427Tncoy1ZfbTeoKNepfm0aRwGQ&usqp=CAU" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">An item</li>
-                    <li class="list-group-item">A second item</li>
-                    <li class="list-group-item">A third item</li>
-                </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">An item</li>
-                    <li class="list-group-item">A second item</li>
-                    <li class="list-group-item">A third item</li>
-                </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">An item</li>
-                    <li class="list-group-item">A second item</li>
-                    <li class="list-group-item">A third item</li>
-                </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <ul class="list-group">
+                        <li class="list-group-item">An item</li>
+                        <li class="list-group-item">A second item</li>
+                        <li class="list-group-item">A third item</li>
+                        <li class="list-group-item">A fourth item</li>
+                        <li class="list-group-item">And a fifth one</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
+<script>
+$(document).ready(function() {
 
-</body>
+    $('#update_weight').click(function() {
 
-</html>
+        var weightValue = $('#input_weight').val();
+
+        //如果體重輸入格式錯誤，提示錯誤並終止
+        if (weight_error(weightValue)) return;
+
+        $.ajax({
+            type: 'POST',
+            url: '<?= $api['body_data'] ?>',
+            data: {
+                'member_id': <?= $_SESSION['member_id'] ?>,
+                'weight': weightValue
+            },
+            success: function(response) {
+                if (response.update) {
+                    location.reload();
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle errors
+                console.error('Error updating weight:', error);
+            }
+        });
+    });
+
+    /**
+     * 輸入體重格式判斷
+     *
+     * @param {number|string} weight 輸入體重數值
+     * @return {boolean} 返回輸入格式正確與否
+     */
+    function weight_error(weight) {
+        var regex = /^\d+(\.\d{1})?$/;
+        if (!regex.test(weight)) {
+            Swal.fire({
+                icon: 'error',
+                title: '錯誤',
+                text: '請輸入最多小數點後一位的數字',
+                showConfirmButton: false,
+                timer: 2000
+            });
+            return true;
+        } else {
+            return false;
+        }
+    }
+});
+</script>

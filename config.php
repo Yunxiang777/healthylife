@@ -14,8 +14,10 @@ $routing = array(
     'diet_record' => $domain . 'view/diet_record.php',
     'person_data' => $domain . 'view/person_data.php',
     'login' => $domain . 'view/login.php',
+    'body_data' => $domain . 'view/body_data.php',
 );
 
 $api = array(
     'logout' => $domain . 'controller/login_check.php',
+    'body_data' => $domain . 'controller/body_data.php',
 );

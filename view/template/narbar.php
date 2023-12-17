@@ -39,7 +39,7 @@ ob_start(); //緩衝輸出，確保header被呼叫之前，沒有任何輸出
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="<?= $routing['person_data'] ?>">基本資料</a>
-                        <!-- <a class="dropdown-item" href="#">身體數據</a> -->
+                        <a class="dropdown-item" href="<?= $routing['body_data'] ?>">身體數據</a>
                         <!-- <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a> -->
                     </div>

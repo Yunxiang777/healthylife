@@ -5,7 +5,10 @@ require __DIR__ . '/../model/get_food_record.php';
 
 // 獲取食物記錄結果
 $foodRecordGetter = new Get_food_record();
+//今日攝取食物
 $result = $foodRecordGetter->getFoodRecord($formattedDate, $_SESSION['member_id']);
+//今日總卡路里
+$total_calories = $foodRecordGetter->today_calories($formattedDate, $_SESSION['member_id']);
 ?>
 
 <head>
