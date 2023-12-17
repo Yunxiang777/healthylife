@@ -33,7 +33,7 @@ ob_start(); //緩衝輸出，確保header被呼叫之前，沒有任何輸出
                 <li class="nav-item <?= $filename == 'diet_record' ? 'active' : '' ?>">
                     <a class="nav-link" href="<?= $routing['diet_record'] ?>">飲食紀錄</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown ">
                     <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
                         會員資料
                     </a>

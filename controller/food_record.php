@@ -10,11 +10,7 @@ if ($_POST['users_id']) {
     $today = $_POST['today'];
     $mealTime = $_POST['mealTime'];
     $result = $foodRecordGetter->insertFoodRecord($foodName, $calories, $users_id, $today, $mealTime);
-    if ($result) {
-        echo true;
-        exit();
-    } else {
-        false;
-        exit();
-    }
+
+    echo $result;
+    exit();
 }

@@ -2,23 +2,29 @@
 require __DIR__ . '/template/narbar.php';
 $helper->visitor_redirect();
 require __DIR__ . '/../model/get_food_record.php';
-
+require_once __DIR__ . '/../model/update_member_data.php';
+$Update_member_data = new Update_member_data();
+// 獲取個人訊息
+$profile_message = $Update_member_data->member_message($_SESSION['member_id']);
+//減脂肪所需熱量 $diet_tdee
+$diet_tdee = $helper->tdee($profile_message['gender'], $profile_message['height'], $profile_message['weight'], $profile_message['age']) - 500;
 // 獲取食物記錄結果
 $foodRecordGetter = new Get_food_record();
 //今日攝取食物
 $result = $foodRecordGetter->getFoodRecord($formattedDate, $_SESSION['member_id']);
-//今日總卡路里
+//今日總卡路里 $total_calories
 $total_calories = $foodRecordGetter->today_calories($formattedDate, $_SESSION['member_id']);
+//今日卡路里%數
+$diet_percent = $total_calories / $diet_tdee * 100;
 ?>
 
 <head>
     <link rel="stylesheet" href="../style/diet_record.css">
 </head>
 <div class="container">
-    <h3><?= $mealTime ?></h3>
-    <h5>今日總熱量攝取 <?= $foodRecordGetter->today_calories($formattedDate, $_SESSION['member_id']) ?></h5>
+    <h4>今日健康瘦身所需熱量進度條(<?= $diet_tdee ?>仟卡) <span class="badge badge-secondary">TDEE</span></h4>
     <div class="progress">
-        <div class="progress-bar bg-info" role="progressbar" style="width: 10%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">153</div>
+        <div class="progress-bar bg-info" role="progressbar" style="width: <?= $diet_percent ?>%" aria-valuenow="350" aria-valuemin="0" aria-valuemax="100"><?= $total_calories ?></div>
     </div>
     <div class="food_box">
         <input type="text" id="food" placeholder="食物" class="input_diet">
